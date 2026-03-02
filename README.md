@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Holi! 🎨 Festival of Colors</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #feca57 25%, #48dbfb 50%, #ff9ff3 75%, #54a0ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Color powder particles */
+        .color-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float-particle 8s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(50vh) translateX(var(--drift)) rotate(180deg) scale(1);
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(calc(var(--drift) * 2)) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Color splash effect */
+        .color-splash {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0;
+            animation: splash 4s infinite ease-out;
+        }
+
+        @keyframes splash {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin: 40px 0;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .main-title {
+            font-size: 80px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 
+                3px 3px 0 #ff6b9d,
+                6px 6px 0 #feca57,
+                9px 9px 0 #48dbfb,
+                12px 12px 0 #ff9ff3;
+            margin-bottom: 20px;
+            animation: rainbow-text 3s infinite;
+        }
+
+        @keyframes rainbow-text {
+            0%, 100% {
+                text-shadow: 
+                    3px 3px 0 #ff6b9d,
+                    6px 6px 0 #feca57,
+                    9px 9px 0 #48dbfb,
+                    12px 12px 0 #ff9ff3;
+            }
+            25% {
+                text-shadow: 
+                    3px 3px 0 #feca57,
+                    6px 6px 0 #48dbfb,
+                    9px 9px 0 #ff9ff3,
+                    12px 12px 0 #ff6b9d;
+            }
+            50% {
+                text-shadow: 
+                    3px 3px 0 #48dbfb,
+                    6px 6px 0 #ff9ff3,
+                    9px 9px 0 #ff6b9d,
+                    12px 12px 0 #feca57;
+            }
+            75% {
+                text-shadow: 
+                    3px 3px 0 #ff9ff3,
+                    6px 6px 0 #ff6b9d,
+                    9px 9px 0 #feca57,
+                    12px 12px 0 #48dbfb;
+            }
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .emoji-decoration {
+            font-size: 50px;
+            margin: 20px 0;
+        }
+
+        /* Content Cards */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+            border: 5px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #ff6b9d, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+            border-radius: 30px;
+            z-index: -1;
+            animation: rotate-gradient 3s linear infinite;
+        }
+
+        @keyframes rotate-gradient {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .section-content {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Color Boxes */
+        .color-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .color-box {
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            animation: bounce-in 0.6s ease-out;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .color-box:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .color-red { background: linear-gradient(135deg, #ff6b9d, #e84393); animation-delay: 0.1s; }
+        .color-yellow { background: linear-gradient(135deg, #feca57, #f39c12); animation-delay: 0.2s; }
+        .color-blue { background: linear-gradient(135deg, #48dbfb, #0984e3); animation-delay: 0.3s; }
+        .color-green { background: linear-gradient(135deg, #00d2d3, #05c46b); animation-delay: 0.4s; }
+        .color-pink { background: linear-gradient(135deg, #ff9ff3, #fd79a8); animation-delay: 0.5s; }
+        .color-orange { background: linear-gradient(135deg, #ff9f43, #ee5a24); animation-delay: 0.6s; }
+
+        /* Wishes Section */
+        .wishes-text {
+            font-size: 28px;
+            color: #333;
+            line-height: 1.8;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .highlight {
+            color: #ff6b9d;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        /* Interactive Button */
+        .celebrate-btn {
+            background: linear-gradient(135deg, #ff6b9d, #feca57);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            margin: 30px auto;
+            display: block;
+            animation: button-glow 2s infinite;
+        }
+
+        @keyframes button-glow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 50px rgba(255, 107, 157, 0.8);
+            }
+        }
+
+        .celebrate-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+        }
+
+        .celebrate-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Facts Section */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(254, 202, 87, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid;
+            animation: slide-in 0.8s ease-out;
+        }
+
+        @keyframes slide-in {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .fact-card:nth-child(1) { border-color: #ff6b9d; animation-delay: 0.1s; }
+        .fact-card:nth-child(2) { border-color: #feca57; animation-delay: 0.2s; }
+        .fact-card:nth-child(3) { border-color: #48dbfb; animation-delay: 0.3s; }
+        .fact-card:nth-child(4) { border-color: #ff9ff3; animation-delay: 0.4s; }
+
+        .fact-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .fact-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .fact-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Color burst effect */
+        .burst-color {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: burst 1.5s ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 48px;
+                text-shadow: 
+                    2px 2px 0 #ff6b9d,
+                    4px 4px 0 #feca57,
+                    6px 6px 0 #48dbfb,
+                    8px 8px 0 #ff9ff3;
+            }
+            .subtitle {
+                font-size: 24px;
+            }
+            .emoji-decoration {
+                font-size: 35px;
+            }
+            .content-section {
+                padding: 25px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .section-content, .wishes-text {
+                font-size: 18px;
+            }
+            .celebrate-btn {
+                padding: 15px 35px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating color splashes -->
+    <div class="color-splash" style="top: 10%; left: 10%; animation-delay: 0s;">💥</div>
+    <div class="color-splash" style="top: 20%; left: 80%; animation-delay: 1s;">💥</div>
+    <div class="color-splash" style="top: 70%; left: 15%; animation-delay: 2s;">💥</div>
+    <div class="color-splash" style="top: 80%; left: 85%; animation-delay: 3s;">💥</div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="main-title">HAPPY HOLI!</h1>
+            <p class="subtitle">Festival of Colors, Love & Joy</p>
+            <div class="emoji-decoration">🎨 🌈 🎉 💐 🎊 ✨</div>
+        </div>
+
+        <!-- Main Wishes Section -->
+        <div class="content-section">
+            <h2 class="section-title">🎨 May Your Life Be Filled With Colors! 🎨</h2>
+            <div class="wishes-text">
+                <p>Wishing you and your family a <span class="highlight">vibrant and joyous Holi!</span></p>
+                <p>May this festival of colors paint your life with the brightest hues of happiness, prosperity, and success.</p>
+                <p>Let's celebrate the victory of good over evil and welcome the spring season with open hearts!</p>
+            </div>
+        </div>
+
+        <!-- Color Boxes -->
+        <div class="content-section">
+            <h2 class="section-title">🌈 Colors of Holi 🌈</h2>
+            <div class="color-boxes">
+                <div class="color-box color-red">❤️ Red<br>Love & Passion</div>
+                <div class="color-box color-yellow">💛 Yellow<br>Joy & Happiness</div>
+                <div class="color-box color-blue">💙 Blue<br>Peace & Calm</div>
+                <div class="color-box color-green">💚 Green<br>Nature & Life</div>
+                <div class="color-box color-pink">💗 Pink<br>Care & Kindness</div>
+                <div class="color-box color-orange">🧡 Orange<br>Energy & Optimism</div>
+            </div>
+        </div>
+
+        <!-- About Holi -->
+        <div class="content-section">
+            <h2 class="section-title">✨ About Holi ✨</h2>
+            <div class="section-content">
+                <p>Holi is one of the most celebrated festivals in India, known as the "Festival of Colors" or "Festival of Spring."</p>
+                <br>
+                <p>It marks the arrival of spring, the end of winter, and celebrates the victory of good over evil. People celebrate by throwing colored powder (gulal) and water at each other, singing, dancing, and enjoying festive foods.</p>
+                <br>
+                <p>The festival is also a time to forgive, forget grievances, and repair broken relationships.</p>
+            </div>
+        </div>
+
+        <!-- Fun Facts -->
+        <div class="content-section">
+            <h2 class="section-title">🎉 Holi Fun Facts 🎉</h2>
+            <div class="facts-grid">
+                <div class="fact-card">
+                    <div class="fact-icon">🔥</div>
+                    <div class="fact-title">Holika Dahan</div>
+                    <div class="fact-text">The night before Holi, bonfires are lit to symbolize the burning of evil spirits and the triumph of good over evil.</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🎨</div>
+                    <div class="fact-title">Natural Colors</div>
+                    <div class="fact-text">Traditionally, Holi colors were made from natural sources like turmeric, flowers, and herbs.</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🍬</div>
+                    <div class="fact-title">Festive Foods</div>
+                    <div class="fact-text">Special treats like gujiya, mathri, and thandai are prepared and shared during Holi celebrations.</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🌍</div>
+                    <div class="fact-title">Global Celebration</div>
+                    <div class="fact-text">Holi is celebrated not just in India, but around the world by Indian communities and color festival enthusiasts!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Button -->
+        <button class="celebrate-btn" onclick="celebrateHoli()">
+            🎨 Celebrate Holi! 🎉
+        </button>
+
+        <!-- Final Wishes -->
+        <div class="content-section">
+            <h2 class="section-title">💕 Warm Wishes 💕</h2>
+            <div class="wishes-text">
+                <p><span class="highlight">May the colors of Holi</span> spread happiness, peace, and love in your life.</p>
+                <p>May your days be filled with the vibrant colors of joy and your heart with the sweetness of love.</p>
+                <p style="font-size: 36px; margin-top: 30px;">🌈 Happy Holi! 🎨</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>🎨 Wishing you a colorful and blessed Holi! 🎨</p>
+            <div class="emoji-decoration">🌸 🌺 🌼 🌻 🌷 🌹</div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating color particles
+        function createColorParticles() {
+            const colors = ['#ff6b9d', '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3', '#ff9f43'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.classList.add('color-particle');
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = (20 + Math.random() * 40) + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.setProperty('--drift', (Math.random() - 0.5) * 200 + 'px');
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                    
+                    document.body.appendChild(particle);
+                }, i * 100);
+            }
+        }
+
+        // Celebrate Holi function
+        function celebrateHoli() {
+            const colors = ['#ff6b9d', '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3', '#ff9f43'];
+            
+            // Create color burst
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createColorBurst();
+                }, i * 30);
+            }
+            
+            // Show message
+            setTimeout(() => {
+                alert('🎨 Happy Holi! 🎨\n\n🌈 May your life be filled with all the colors of joy, love, and happiness! 🌈\n\n💕 Wishing you a spectacular Festival of Colors! 💕');
+            }, 500);
+        }
+
+        function createColorBurst() {
+            const colors = ['#ff6b9d', '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3', '#ff9f43'];
+            const burst = document.createElement('div');
+            burst.classList.add('burst-color');
+            burst.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 100 + Math.random() * 300;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            burst.style.setProperty('--x', x + 'px');
+            burst.style.setProperty('--y', y + 'px');
+            
+            const button = document.querySelector('.celebrate-btn');
+            const rect = button.getBoundingClientRect();
+            burst.style.left = rect.left + rect.width / 2 + 'px';
+            burst.style.top = rect.top + rect.height / 2 + 'px';
+            
+            document.body.appendChild(burst);
+            
+            setTimeout(() => {
+                burst.remove();
+            }, 1500);
+        }
+
+        // Add click effect anywhere on the page
+        document.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('celebrate-btn')) {
+                const colors = ['#ff6b9d', '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3', '#ff9f43'];
+                
+                for (let i = 0; i < 5; i++) {
+                    const splash = document.createElement('div');
+                    splash.classList.add('burst-color');
+                    splash.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    splash.style.left = e.pageX + 'px';
+                    splash.style.top = e.pageY + 'px';
+                    
+                    const angle = (Math.PI * 2 * i) / 5;
+                    const distance = 50 + Math.random() * 100;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    
+                    splash.style.setProperty('--x', x + 'px');
+                    splash.style.setProperty('--y', y + 'px');
+                    
+                    document.body.appendChild(splash);
+                    
+                    setTimeout(() => {
+                        splash.remove();
+                    }, 1500);
+                }
+            }
+        });
+
+        // Initialize particles on load
+        window.addEventListener('load', () => {
+            createColorParticles();
+            console.log('🎨 Happy Holi! Festival of Colors! 🌈');
+        });
+
+        // Recreate particles periodically
+        setInterval(createColorParticles, 15000);
+    </script>
+</body>
+</html>
